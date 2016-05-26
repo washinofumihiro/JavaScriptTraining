@@ -23,7 +23,10 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
       // });
       //
       // ここに上記のどちらかのコードを記述してください。
-
+	  var element = document.getElementById('firebrick');
+	  element.addEventListener('click',function(){
+	  	element.textContent = Number(element.textContent) + 1;
+	  	});
 
       var firebrick = document.getElementById('firebrick');
       firebrick.dispatchEvent(createClickEvent());
@@ -35,9 +38,16 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
 
     it('2 番の要素の click イベントで要素内の数字を 1 ずつ小さくできる', function() {
-
+      // $('#firebrick').on('click', function(event) {
+      //   var $target = $(event.target);
+      //   $target.text(Number($target.text()) + 1);
+      // });
       // ここにコードを記述してください。
-
+	  $('#chocolate').on('click', function(event) {
+	  	var $target = $(event.target);
+	  	$target.text(Number($target.text()) - 1);
+	  	});
+	  	
 
       var chocolate = document.getElementById('chocolate');
       chocolate.dispatchEvent(createClickEvent());
@@ -51,6 +61,21 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
     it('3 番の要素の click イベントで要素を 10 度ずつ回転できる', function() {
 
       // ここにコードを記述してください。
+      var num = 0;
+	  $('.mediumseagreen').on('click', function(event) {
+	  	var $target = $(event.target);
+	  	num += 10;
+	  	//$target.text(Number(num) - 1);
+	  	//$target.text(Number($target.text()) - 2);
+	  	$target.css({ transform : 'rotate('+ num +'deg)'});
+	  	});
+	  	
+	  	
+	  	//test
+	  //$('.mediumseagreen').on('click', function(event) {
+	  //	var $target = $(event.target);
+	  //	$target.css({'transform' : 'rotate(10deg)'});
+	  //	});
 
 
       var mediumseagreen = document.querySelector('.mediumseagreen');
@@ -65,9 +90,34 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
 
     it('4 番の要素を入力された角度に回転できる', function() {
-
       // ここにコードを記述してください。
 
+      
+      //var str = document.js.elements[0].value;
+      //var a = $('input').val();
+      //console.log($a);
+        //$('.turquoise').change'( function(){
+      	//	$(this).val();
+      	//var $target = $(event.target);
+      	//$target.val()
+      	//});
+      
+      //	$('input').on('change', function(event) {
+	  //	var $target = $(event.val);
+	  //	num += 10;
+	  //	$target.css({ transform : 'rotate('+ num +'deg)'});
+	  //	});
+      
+      
+      //以下解答、後で復習およびjQueryでの記述を考える
+      var element = document.getElementsByClassName('turquoise')[0];
+      var input = element.getElementsByTagName('input')[0];
+
+      // change イベントを使います。
+      input.addEventListener('change', function() {
+        var angleDegree = input.value;
+        element.style.transform = 'rotate( ' + angleDegree + 'deg)';
+      });
 
       var turquoise = document.querySelector('.turquoise');
       var turquoiseInput = turquoise.querySelector('input');
