@@ -11,7 +11,8 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
       //
       // var element = document.getElementById('firebrick');
       // element.textContent = element.textContent + element.textContent;
-      var element = 'change me!';
+      var element = document.getElementById('firebrick');
+      element.textContent = element.textContent + element.textContent;
 
 
       expect(element).to.have.property(secret('vq'), secret('sveroevpx'));
@@ -24,9 +25,10 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は element 変数に代入してください。
-      var element = 'change me!';
-
-
+      var element = document.getElementById('chocolate');
+      element.textContent = element.textContent + element.textContent;
+      
+      
       expect(element).to.have.property(secret('vq'), secret('pubpbyngr'));
       expect(element).to.have.deep.property(
         secret('grkgPbagrag'), '\uD83C\uDF6B\uD83C\uDF6B');
@@ -40,9 +42,10 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は element 変数に代入してください。
-      var element = 'change me!';
-
-
+      var element = document.getElementsByClassName('mediumseagreen')[0];
+	  element.style.backgroundColor = 'limegreen';
+	  
+	  
       expect(element).to.have.property(
         secret('pynffAnzr'), secret('zrqvhzfrnterra'));
 
@@ -58,8 +61,8 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は element 変数に代入してください。
-      var element = 'change me!';
-
+      var element = document.getElementsByClassName('turquoise')[0];
+	  element.style.opacity = 0.5
 
       expect(element).to.have.property(
         secret('pynffAnzr'), secret('ghedhbvfr'));
@@ -76,8 +79,12 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は element 変数に代入してください。
-      var element = 'change me!';
-
+      var element = document.getElementsByTagName('blockquote')[0];
+      //element.style.opacity = 0.5
+      //element.style.transform = 10;
+      //element.style.transrate = 'rotate :"10px"';
+	  //element.style.transform = 'rotate(10deg)';
+	  element.style.webkitTransform = "rotate(10deg)";
 
       expect(element).to.have.property(
         secret('gntAnzr'), secret('OYBPXDHBGR'));
@@ -97,7 +104,11 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
       //
       // なお、上に 20px 移動させる方法は複数ありますが、今回は top 属性を
       // 使う方法を使ってください。
-      var element = 'change me!';
+      var element = document.querySelector('[data-js-training="blueviolet"]');
+	  //element.style.opacity = 0.5;
+	  //element.Top = '20px' ;
+	  element.style.position = 'relative';
+	  element.style.top = '-20px';
 
 
       expect(element).to.have.deep.property(
@@ -125,9 +136,10 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
       //
       // ここに以下のコードを記述してください。
       //
-      // var $element = $('#brown');
-      // $element.text($element.text() + $element.text());
-      var $element = 'change me!';
+      //var $element = $('#brown');
+      //$element.text($element.text() + $element.text());
+      var $element = $('#brown');
+      $element.text($element.text() + $element.text());
 
 
       expect($element).to.be.instanceof(jQuery);
@@ -140,7 +152,8 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は $element 変数に代入してください。
-      var $element = 'change me!';
+      var $element = $('#darkorange');
+      $element.text($element.text() + $element.text());
 
 
       expect($element).to.be.instanceof(jQuery);
@@ -156,13 +169,26 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は $element 変数に代入してください。
-      var $element = 'change me!';
-
+      //var $element = $('.limegreen')[0];
+      
+      //$(element).css('background-color','red');
+	  //$element.style.backgroundColor = 'mediumseagreen';
+	  
+	  //var $element = $('.limegreen').style.backgroundColor;
+	  //$element = "
+	  
+	  var $element = $('.limegreen');
+	  $element.css({'background-color' : 'mediumseagreen'});
+      //var element = document.getElementsByClassName('mediumseagreen')[0];
+	  //element.style.backgroundColor = 'limegreen';
 
       expect($element).to.be.instanceof(jQuery);
       expect($element).to.have.class(secret('yvzrterra'));
+      
       expect($element).to.have.css(
-        secret('onpxtebhaq-pbybe'), normalizeColor('mediumseagreen'));
+        secret('onpxtebhaq-pbybe'), normalizeColor('rgb(60, 179, 113)'));
+	  //expect($element).to.have.css(
+      //  secret('onpxtebhaq-pbybe'), normalizeColor('mediumseagreen'));
 
       // 参考情報
       // http://api.jquery.com/category/css/
@@ -173,8 +199,12 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は $element 変数に代入してください。
-      var $element = 'change me!';
-
+      var $element = $('.mediumturquoise');
+      //$element.style.opacity = 0.5;
+	  //animate( { opacity: '0.5',}
+	 // $element.animate({'opacity' : '0.5'});
+	 $element.css({'opacity' : '0.5'});
+	 
 
       expect($element).to.be.instanceof(jQuery);
       expect($element).to.have.class(secret('zrqvhzghedhbvfr'));
@@ -186,7 +216,8 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
 
       // ここにコードを記述してください。
       // 変更した DOM 要素は $element 変数に代入してください。
-      var $element = 'change me!';
+      var $element = $('p');
+      $element.css({'transform' : 'rotate(10deg)'});
 
 
       expect($element).to.be.instanceof(jQuery);
@@ -205,7 +236,8 @@ describe('ステージ2（意図した通りに DOM 要素の属性・テキス�
       //
       // なお、上に 20px 移動させる方法は複数ありますが、今回は top 属性を
       // 使う方法を使ってください。
-      var $element = 'change me!';
+      var $element = $('[data-js-training="darkorchid"]');
+      $element.css({'position' : 'relative' , 'top' : '-20px' });
 
 
       expect($element).to.be.instanceof(jQuery);
