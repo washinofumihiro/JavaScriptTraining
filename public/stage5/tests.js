@@ -9,10 +9,11 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       //
       // ここに下記のコードを記述してください。
       //
-      // promise.then(function(msg) {
-      //   expect(msg).to.equal('resolved!');
-      //   testDone();
-      // });
+       promise.then(function(msg) {
+         expect(msg).to.equal('resolved!');
+         testDone();
+         console.log(msg);
+       });
     });
 
 
@@ -22,8 +23,11 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       // reject ハンドラーを使って、下の assertion が promise の
       // エラー値を検証できるように記述してください。
       //
-      // expect(msg).to.equal('rejected!');
-      // testDone();
+      promise.catch(function(msg) {
+ 	    expect(msg).to.equal('rejected!');
+ 	    console.error(msg);
+      	testDone();
+      });
 
       // ここにコードを記述してください。
 
@@ -38,7 +42,7 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       var promise3 = createWaitPromise(messageFragments[2], 30);
 
       // 作成した promise を promise 変数に代入してください。
-      var promise = 'change me!';
+      var promise = Promise.all([promise1, promise2, promise3]);
 
 
       return expect(promise).to.eventually.deep.equal(messageFragments);
@@ -52,7 +56,7 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       var promise3 = createWaitPromise(messageFragments[2], 30);
 
       // 作成した promise を promise 変数に代入してください。
-      var promise = 'change me!';
+      var promise = Promise.race([promise1, promise2, promise3]);
 
 
       return expect(promise).to.eventually.equal(messageFragments[1]);
@@ -69,9 +73,9 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       //
       // ここに下記のコードを記述してください。
       //
-      // var promisedFriends = fetch(api + username).then(function(res) {
-      //   return res.json();
-      // });
+       var promisedFriends = fetch(api + username).then(function(res) {
+         return res.json();
+       });
 
 
       return expect(promisedFriends).to.eventually.have.length(1)
@@ -83,9 +87,16 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       var api = '/api/friends/';
       var username = 'Shen';
 
-      // 作成した promise を promisedFriends 変数に代入してください。
-      var promisedFriends = 'change me!';
 
+
+
+      // 作成した promise を promisedFriends 変数に代入してください。
+      var promisedFriends = fetch(api + username).then(function(res) {
+         console.info(res);
+         return res.json();
+       });
+	  //console.info(res.json());
+	  //console.info(promisedFriends);
 
       return expect(promisedFriends).to.eventually.have.length(2)
         .and.have.members(['jisp', 'TeJaS']);
@@ -95,10 +106,15 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
     it('/api/friends API を使って Shen の友人の友人を取得できる', function() {
       var api = '/api/friends/';
       var username = 'Shen';
-
+	  
+	  
+	  
       // 作成した promise を promisedFriends 変数に代入してください。
-      var promisedFriends = 'change me!';
-
+       var promisedFriends = fetch(api + username).then(doSomething).then(function(res) {
+       	 return fetch(api);
+       }).then(doSomething).then(function() {
+       	 return res.json();
+       });
 
       return expect(promisedFriends).to.eventually.have.length(1)
         .and.have.members(['TypeScript']);
@@ -127,8 +143,11 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
     it('Github の mixi-inc の organization の情報を取得できる', function() {
 
       // 作成した promise を mixiOrg 変数に代入してください。
-      var mixiOrg = 'change me!';
-
+     // var mixiOrg = 'change me!';
+      var mixiOrg = fetch('https://api.github.com/orgs/mixi-inc')
+        .then(function(response) {
+          return response.json();
+        });
       return expect(mixiOrg).to.eventually.have.property('id', 1089312);
 
       // Github API に関する参考情報
@@ -140,9 +159,11 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
       var repository = 'mixi-inc/JavaScriptTraining';
 
       // 作成した promise を mixiRepo 変数に代入してください。
-      var mixiRepo = 'change me!';
-
-
+      var mixiRepo = fetch('https://api.github.com/repos/mixi-inc/JavaScriptTraining')
+      .then(function(response) {
+      	return response.json();
+      });
+      
       return expect(mixiRepo).to.eventually.have.property('full_name', repository);
 
       // Github API に関する参考情報
@@ -154,7 +175,11 @@ describe('ステージ5（意図通りに非同期処理を利用できる）', 
        'それぞれ 1 つずつ取得できる', function() {
       var languages = [ 'VimL', '"Emacs Lisp"' ];
       var mostPopularRepos = 'change me!';
-
+      
+      var mixiRepo = fetch('https://api.github.com?q=' + languages[0])
+      .then(function(response) {
+      	return response.json();
+      });
       // 作成した promise を mostPopularRepos 変数に代入してください。
 
 
